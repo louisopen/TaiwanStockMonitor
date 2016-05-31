@@ -1,0 +1,2 @@
+# TaiwanStockMonitor
+Monitor Taiwan Stock
