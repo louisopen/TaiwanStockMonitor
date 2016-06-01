@@ -69,7 +69,7 @@ class Crawler():
         #['*', '2498  ', u'\u5b8f\u9054\u96fb          ', '10,080,000', '2,957,000', '7,123,000']
         for tr in tree.xpath('//table[1]/tbody/tr'):
             tds = tr.xpath('td/text()')
-            print tds
+            #print tds
 
             row = self._clean_row([
                 date_str, # 日期
