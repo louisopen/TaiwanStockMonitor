@@ -22,13 +22,13 @@ class Parser():
 
     def _parse_twt38u(self, stock_id):
         ''' Parse row from csv file in twt38u '''
-        print "Show TWT38U Info"
+        print "外資買賣資訊 - 日期, 買量, 賣量, 總和"
         self._change_folder_name("TWT38U")
         self._show_row(stock_id)
 
     def _parse_twt43u(self, stock_id):
         ''' Parse row from csv file in twt43u '''
-        print "Show TWT43U Info"
+        print "自營商買賣資訊 - 日期, 買量, 賣量, 總和"
         self._change_folder_name("TWT43U")
         self._show_row(stock_id)
         #if True == os.path.isfile('{}/{}.csv'.format(self.foldername, stock_id)):
@@ -39,7 +39,7 @@ class Parser():
 
     def _parse_twt44u(self, stock_id):
         ''' Parse row from csv file in twt44u '''
-        print "Show TWT44U Info"
+        print "投信買賣資訊 - 日期, 買量, 賣量, 總和"
         self._change_folder_name("TWT44U")
         self._show_row(stock_id)
 
