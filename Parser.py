@@ -19,16 +19,21 @@ class Parser():
                 print row
             f.close()
 
+    def _parse_data(self, stock_id):
+        ''' Parse row from csv file in twt38u '''
+        print "個股買賣資訊 - 交易日期、成交股數、成交金額、開盤價、最高價、最低價、收盤價、漲跌價差、成交筆數"
+        self._change_folder_name("data")
+        self._show_row(stock_id)
 
     def _parse_twt38u(self, stock_id):
         ''' Parse row from csv file in twt38u '''
-        print "外資買賣資訊 - 日期, 買量, 賣量, 總和"
+        print "外資買賣資訊 - 日期、買量、賣量、總和"
         self._change_folder_name("TWT38U")
         self._show_row(stock_id)
 
     def _parse_twt43u(self, stock_id):
         ''' Parse row from csv file in twt43u '''
-        print "自營商買賣資訊 - 日期, 買量, 賣量, 總和"
+        print "自營商買賣資訊 - 日期、買量、賣量、總和"
         self._change_folder_name("TWT43U")
         self._show_row(stock_id)
         #if True == os.path.isfile('{}/{}.csv'.format(self.foldername, stock_id)):
@@ -39,7 +44,7 @@ class Parser():
 
     def _parse_twt44u(self, stock_id):
         ''' Parse row from csv file in twt44u '''
-        print "投信買賣資訊 - 日期, 買量, 賣量, 總和"
+        print "投信買賣資訊 - 日期、買量、賣量、總和"
         self._change_folder_name("TWT44U")
         self._show_row(stock_id)
 
@@ -63,6 +68,7 @@ def main():
         return
 
     parser = Parser()
+    parser._parse_data(stock_id)
     parser._parse_twt38u(stock_id)
     parser._parse_twt43u(stock_id)
     parser._parse_twt44u(stock_id)
