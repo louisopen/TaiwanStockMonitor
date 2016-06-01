@@ -20,3 +20,6 @@ python TWT43U.py
 ###投信買賣
 python TWT44U.py
 
+###每日自動執行腳本
+./Dailyrun.sh
+
