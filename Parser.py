@@ -10,6 +10,8 @@ from datetime import datetime
 class Parser():
     def __init__(self, foldername="TWT38U"):
         self.foldername = foldername
+        first_day = datetime.today()
+        self.today = '{0}/{1:02d}/{2:02d}'.format(first_day.year - 1911, first_day.month, first_day.day)
         
     def _record(self, stock_id, row):
         ''' Save row to csv file '''
@@ -29,21 +31,23 @@ class Parser():
         ''' Set folder nargsme '''
         self.foldername = foldername
 
-    def _clean_row(self, row):
-        ''' Clean comma and spaces '''
-        for index, content in enumerate(row):
-            row[index] = re.sub(",", "", content.strip())
-            row[index] = filter(lambda x: x in string.printable, row[index])
-        return row
+    def _write_data_to_csv(self, row):
+        fadd = open('{}.csv'.format(stock_id), 'ab')
+        cw = csv.writer(fadd)
+        cw.writerow(row)
+        fadd.close()
 
     def _show_row(self, stock_id):
         if True == os.path.isfile('{}/{}.csv'.format(self.foldername, stock_id)):
             f = open('{}/{}.csv'.format(self.foldername, stock_id), 'r')
+
             for row in csv.reader(f):
-                #if row[0] == stock_id:
-                print date_str
-                print row[0]
-                print row
+                #print self.today
+                #print row[0]
+                #Only show today information
+                if row[0] == self.today:
+                    print row
+                    self._write_data_to_csv()
             f.close()
 
     def _parse_data(self, stock_id):
@@ -94,9 +98,11 @@ def main():
         arguments.error('Not support')
         return
 
+    # Get time of today
     first_day = datetime.today()
     date_str = '{0}/{1:02d}/{2:02d}'.format(first_day.year - 1911, first_day.month, first_day.day)
     parser = Parser()
+    #parser._change_line(stock_id)
     parser._parse_data(stock_id)
     parser._parse_twt38u(stock_id)
     parser._parse_twt43u(stock_id)
