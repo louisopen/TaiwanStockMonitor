@@ -3,19 +3,46 @@
 import argparse
 import csv  
 import os.path
+import re
+import string
+from datetime import datetime
 
 class Parser():
     def __init__(self, foldername="TWT38U"):
         self.foldername = foldername
+        
+    def _record(self, stock_id, row):
+        ''' Save row to csv file '''
+        if True == os.path.isfile('{}/{}.csv'.format(self.foldername, stock_id)):
+            f = open('{}/{}.csv'.format(self.foldername, stock_id), 'r')
+            for row in csv.reader(f):
+                print row
+            f.close()
+
+
+        f = open('{}.csv'.format(stock_id), 'ab')
+        cw = csv.writer(f, lineterminator='\n')
+        cw.writerow(row)
+        f.close()
 
     def _change_folder_name(self, foldername):
         ''' Set folder nargsme '''
         self.foldername = foldername
 
+    def _clean_row(self, row):
+        ''' Clean comma and spaces '''
+        for index, content in enumerate(row):
+            row[index] = re.sub(",", "", content.strip())
+            row[index] = filter(lambda x: x in string.printable, row[index])
+        return row
+
     def _show_row(self, stock_id):
         if True == os.path.isfile('{}/{}.csv'.format(self.foldername, stock_id)):
             f = open('{}/{}.csv'.format(self.foldername, stock_id), 'r')
             for row in csv.reader(f):
+                #if row[0] == stock_id:
+                print date_str
+                print row[0]
                 print row
             f.close()
 
@@ -67,6 +94,8 @@ def main():
         arguments.error('Not support')
         return
 
+    first_day = datetime.today()
+    date_str = '{0}/{1:02d}/{2:02d}'.format(first_day.year - 1911, first_day.month, first_day.day)
     parser = Parser()
     parser._parse_data(stock_id)
     parser._parse_twt38u(stock_id)
