@@ -8,7 +8,7 @@ do
     MINUTE=`date +"%M"`
     DAY_OF_WEEK=`date +"%u"`
     if [ "$DAY_OF_WEEK" == "1" ] || [ "$DAY_OF_WEEK" == "2" ] || [ "$DAY_OF_WEEK" == "3" ] || [ "$DAY_OF_WEEK" == "4" ] || [ "$DAY_OF_WEEK" == "5" ] ; then
-        if [ "$HOUR" == "$HOUR_RUN_ETF" ] && [ "$MINUTE" == "$MINUTE_RUN_ETF" ]; then
+        if [ "$HOUR" == "$HOUR_RUN_STOCK" ] && [ "$MINUTE" == "$MINUTE_RUN_STOCK" ]; then
         python crawl.py
         python TWT38U.py
         python TWT43U.py
