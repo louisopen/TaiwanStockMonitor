@@ -15,9 +15,9 @@ do
         python TWT43U.py
         python TWT44U.py
         stock_id="2498"
-        python Parser.py ${stock_id}  > ${stock_id}.txt
+        python Parser.py ${stock_id}  >> ${stock_id}.txt
         stock_id="2454"
-        python Parser.py ${stock_id}  > ${stock_id}.txt
+        python Parser.py ${stock_id}  >> ${stock_id}.txt
         fi
     fi
     sleep 60
