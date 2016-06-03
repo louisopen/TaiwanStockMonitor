@@ -11,7 +11,7 @@ class Parser():
     def __init__(self, foldername="TWT38U"):
         self.foldername = foldername
         first_day = datetime.today()
-        self.today = '{0}/{1:02d}/{2:02d}'.format(first_day.year - 1911, first_day.month, first_day.day)
+        self.day = '{0}/{1:02d}/{2:02d}'.format(first_day.year - 1911, first_day.month, first_day.day)
         
     def _record(self, stock_id, row):
         ''' Save row to csv file '''
@@ -27,11 +27,14 @@ class Parser():
         cw.writerow(row)
         f.close()
 
+    def _change_day(self, first_day):
+        self.day = '{0}/{1:02d}/{2:02d}'.format(first_day.year - 1911, first_day.month, first_day.day)
+
     def _change_folder_name(self, foldername):
         ''' Set folder nargsme '''
         self.foldername = foldername
 
-    def _write_data_to_csv(self, row):
+    def _write_data_to_csv(self, stock_id, row):
         fadd = open('{}.csv'.format(stock_id), 'ab')
         cw = csv.writer(fadd)
         cw.writerow(row)
@@ -42,12 +45,11 @@ class Parser():
             f = open('{}/{}.csv'.format(self.foldername, stock_id), 'r')
 
             for row in csv.reader(f):
-                #print self.today
+                #print self.day
                 #print row[0]
-                #Only show today information
-                if row[0] == self.today:
+                if row[0] == self.day:
                     print row
-                    self._write_data_to_csv()
+                    self._write_data_to_csv(stock_id, row)
             f.close()
 
     def _parse_data(self, stock_id):
@@ -92,17 +94,22 @@ def main():
     # Day only accept 0 or 3 arguments
     if len(args.param) == 0:
         stock_id = "2498" 
+        first_day = datetime.today()
     elif len(args.param) == 1:
         stock_id = args.param[0]
+        first_day = datetime.today()
+    elif len(args.param) == 4:
+        stock_id = args.param[0]
+        first_day = datetime(args.param[1], args.param[2], args.param[3])
     else:
-        arguments.error('Not support')
+        arguments.error('python Parser.py 2454 2016 6 3')
         return
 
     # Get time of today
-    first_day = datetime.today()
     date_str = '{0}/{1:02d}/{2:02d}'.format(first_day.year - 1911, first_day.month, first_day.day)
     parser = Parser()
     #parser._change_line(stock_id)
+    parser._change_day(first_day)
     parser._parse_data(stock_id)
     parser._parse_twt38u(stock_id)
     parser._parse_twt43u(stock_id)
