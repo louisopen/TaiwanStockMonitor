@@ -6,6 +6,8 @@ import os.path
 import re
 import string
 from datetime import datetime
+from os import mkdir
+from os.path import isdir
 
 class Parser():
     def __init__(self, foldername="TWT38U"):
@@ -35,12 +37,16 @@ class Parser():
         self.foldername = foldername
 
     def _write_data_to_csv(self, stock_id, row):
-        fadd = open('{}.csv'.format(stock_id), 'ab')
+        monitor_folder_name="monitor"
+        if not isdir(monitor_folder_name): #hard code "output" first
+            mkdir(monitor_folder_name)
+        fadd = open('{}/{}.csv'.format(monitor_folder_name, stock_id), 'ab')
         cw = csv.writer(fadd)
         cw.writerow(row)
         fadd.close()
 
-    def _show_row(self, stock_id):
+    def _show_row(self, foldername, stock_id):
+        self._change_folder_name(foldername)
         if True == os.path.isfile('{}/{}.csv'.format(self.foldername, stock_id)):
             f = open('{}/{}.csv'.format(self.foldername, stock_id), 'r')
 
@@ -51,35 +57,45 @@ class Parser():
                     print row
                     self._write_data_to_csv(stock_id, row)
             f.close()
+            return row
+    def _show_human_readable_information(self, tag_list, data):
+        if data == None:
+            return
+        for x in range(len(data)):
+            output = "(%s,%s)," %(tag_list[x],data[x])
+            print output 
 
     def _parse_data(self, stock_id):
         ''' Parse row from csv file in twt38u '''
         print "個股買賣資訊 - 交易日期、成交股數、成交金額、開盤價、最高價、最低價、收盤價、漲跌價差、成交筆數"
-        self._change_folder_name("data")
-        self._show_row(stock_id)
+        #self._change_folder_name("data")
+        data = self._show_row("data", stock_id)
+        tag_list = ["交易日期","成交股數","成交金額","開盤價","最高價","最低價","收盤價","漲跌價差","成交筆數"]
+        self._show_human_readable_information(tag_list, data)
 
     def _parse_twt38u(self, stock_id):
         ''' Parse row from csv file in twt38u '''
         print "外資買賣資訊 - 日期、買量、賣量、總和"
-        self._change_folder_name("TWT38U")
-        self._show_row(stock_id)
+        #self._change_folder_name("TWT38U")
+        data = self._show_row("TWT38U", stock_id)
+        tag_list = ["交易日期","買量","賣量","總和"]
+        self._show_human_readable_information(tag_list, data)
 
     def _parse_twt43u(self, stock_id):
         ''' Parse row from csv file in twt43u '''
         print "自營商買賣資訊 - 日期、買量、賣量、總和"
-        self._change_folder_name("TWT43U")
-        self._show_row(stock_id)
-        #if True == os.path.isfile('{}/{}.csv'.format(self.foldername, stock_id)):
-        #    f = open('{}/{}.csv'.format(self.foldername, stock_id), 'r')
-        #    for row in csv.reader(f):
-        #        print row
-        #    f.close()
-
+        #self._change_folder_name("TWT43U")
+        data = self._show_row("TWT43U", stock_id)
+        tag_list = ["交易日期","買量","賣量","總和"]
+        self._show_human_readable_information(tag_list, data)
+        
     def _parse_twt44u(self, stock_id):
         ''' Parse row from csv file in twt44u '''
         print "投信買賣資訊 - 日期、買量、賣量、總和"
-        self._change_folder_name("TWT44U")
-        self._show_row(stock_id)
+        #self._change_folder_name("TWT44U")
+        data = self._show_row("TWT44U", stock_id)
+        tag_list = ["交易日期","買量","賣量","總和"]
+        self._show_human_readable_information(tag_list, data)
 
 def main():
     # Get arguments
