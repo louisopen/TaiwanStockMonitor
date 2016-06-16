@@ -18,6 +18,20 @@ do
         python Parser.py ${stock_id}  >> ${stock_id}.txt
         stock_id="2454"
         python Parser.py ${stock_id}  >> ${stock_id}.txt
+        git add . 
+        cd TWT38U
+        git commit -am "Update 外資買賣資訊"
+        cd ..
+        cd TWT43U
+        git commit -am "Update 自營商買賣資訊"
+        cd ..
+        cd TWT44U
+        git commit -am "Update 投信買賣資訊"
+        cd ..
+        cd data
+        git commit -am "Update 上市櫃買賣資訊"
+        cd ..
+        git push
         fi
     else
         echo "Today is Saturday or Sunday. You should go to outside and do some exercise."
