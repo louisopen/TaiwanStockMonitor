@@ -18,7 +18,6 @@ do
         python Parser.py ${stock_id}  >> ${stock_id}.txt
         stock_id="2454"
         python Parser.py ${stock_id}  >> ${stock_id}.txt
-        git add . 
         cd TWT38U
         git commit -am "Update 外資買賣資訊"
         cd ..
