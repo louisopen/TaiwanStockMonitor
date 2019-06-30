@@ -1,5 +1,5 @@
 ## Python Crawler
-爬蟲方法及工具很多,Windows的環境還是方便一些,先抓一些來測試功能及行為,同時記錄一下免得又忘了
+爬蟲方法及工具很多,Windows的環境還是方便一些,先抓一些來測試功能及行為,同時記錄一下免得忘了
 
 * 本文參考 http://tw.gitbook.net/python/python_environment.html
 
@@ -34,9 +34,6 @@ Stock_TWSE.py
 
 #### 參考資訊
 https://github.com/Asoul/tsec
-
 https://github.com/nelsonchung/TaiwanStockMonitor
-
 https://github.com/louisopen/PythonCrawler
-
 https://louisopen.github.io
