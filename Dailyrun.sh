@@ -1,7 +1,6 @@
 HOUR_RUN_STOCK=16
 MINUTE_RUN_STOCK=15
 
-
 while [ 1 ]
 do
     HOUR=`date +"%H"`
