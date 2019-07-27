@@ -9,10 +9,10 @@ do
     if [ "$DAY_OF_WEEK" == "1" ] || [ "$DAY_OF_WEEK" == "2" ] || [ "$DAY_OF_WEEK" == "3" ] || [ "$DAY_OF_WEEK" == "4" ] || [ "$DAY_OF_WEEK" == "5" ] ; then
         echo "Run TaiwanStockMonitor at 星期${DAY_OF_WEEK}, ${HOUR}點${MINUTE}分"
         if [ "$HOUR" == "$HOUR_RUN_STOCK" ] && [ "$MINUTE" == "$MINUTE_RUN_STOCK" ]; then
-        python crawl.py
-        python TWT38U.py
-        python TWT43U.py
-        python TWT44U.py
+        python Stock_TWSE.py
+        python Stock_TWT38U.py
+        python Stock_TWT43U.py
+        python Stock_TWT44U.py
         stock_id="2498"
         python Parser.py ${stock_id}  >> ${stock_id}.txt
         stock_id="2454"
